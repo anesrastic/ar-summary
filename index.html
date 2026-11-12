@@ -10,24 +10,16 @@
 <style>
 /* Layout: single clinical-letter column (max ~860px), sticky language bar, dated timeline rows with a response chip. */
 :root{
-  --bg:#f6f8f9; --paper:#ffffff; --fg:#17222b; --muted:#5a6872; --line:#d9e1e6;
-  --accent:#1d5c7a; --accent-soft:#e3eef4;
-  --pd:#a8321f; --pd-bg:#fbe9e5; --sd:#7a5d0c; --sd-bg:#fbf2d9; --pr:#1f6b45; --pr-bg:#e3f3ea; --mx:#5b3f8c; --mx-bg:#eee8f8;
-  --warn-bg:#fff6e0; --warn-line:#e2b44a;
+  /* Light-only palette: airy blue-white ground, clear sky-blue accent. */
+  --bg:#f4f9fc; --paper:#ffffff; --fg:#1f2d36; --muted:#5f707b; --line:#dce8ef;
+  --accent:#2b7bb0; --accent-soft:#eaf4fa; --head:#e6f2f9;
+  --pd:#b23a26; --pd-bg:#fdeeea; --sd:#8a6a12; --sd-bg:#fdf5df; --pr:#23804f; --pr-bg:#e6f6ed; --mx:#6a4ea3; --mx-bg:#f2edfb;
+  --warn-bg:#fff8e6; --warn-line:#efc766;
   --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
   --sans:"Source Sans 3","Segoe UI",system-ui,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0f161b; --paper:#162027; --fg:#e4ebef; --muted:#9aa9b3; --line:#2a3842;
-  --accent:#7cc0de; --accent-soft:#1c3340;
-  --pd:#f19a88; --pd-bg:#3a1f1a; --sd:#e8c56a; --sd-bg:#352c14; --pr:#7fd3a5; --pr-bg:#173326; --mx:#c4a8f0; --mx-bg:#2a2140;
-  --warn-bg:#33290f; --warn-line:#a9822b; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0f161b; --paper:#162027; --fg:#e4ebef; --muted:#9aa9b3; --line:#2a3842;
-  --accent:#7cc0de; --accent-soft:#1c3340;
-  --pd:#f19a88; --pd-bg:#3a1f1a; --sd:#e8c56a; --sd-bg:#352c14; --pr:#7fd3a5; --pr-bg:#173326; --mx:#c4a8f0; --mx-bg:#2a2140;
-  --warn-bg:#33290f; --warn-line:#a9822b; color-scheme:dark}
 
 /* language visibility */
 :root:not([data-lang]) [data-l]:not([data-l="bs"]),
@@ -44,10 +36,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .bar-name{font:600 15px/1.2 var(--sans);color:var(--muted)}
 .langs{display:flex;gap:4px}
 .langs button{font:600 14px var(--sans);border:1px solid var(--line);background:var(--paper);color:var(--fg);padding:6px 12px;border-radius:6px;cursor:pointer}
-.langs button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.langs button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#ffffff}
 .langs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .wrap{padding-block:28px 64px;display:grid;gap:36px}
-header.doc{display:grid;gap:14px;padding-bottom:24px;border-bottom:2px solid var(--fg)}
+header.doc{display:grid;gap:14px;padding:24px 22px;background:var(--head);border:1px solid var(--line);border-radius:12px}
 .eyebrow{font:600 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
 h1{font:650 clamp(28px,5vw,40px)/1.1 var(--serif);margin:0;text-wrap:balance}
 h2{font:650 23px/1.2 var(--serif);margin:0 0 14px;text-wrap:balance}
@@ -110,7 +102,7 @@ footer{border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font
     <span><span data-l="bs">Pacijent</span><span data-l="en">Patient</span><span data-l="de">Patient</span>: <b>Anes Rastić</b></span>
     <span><span data-l="bs">Rođen</span><span data-l="en">Born</span><span data-l="de">Geboren</span>: <b class="mono">14.02.1985</b></span>
     <span><span data-l="bs">Spol</span><span data-l="en">Sex</span><span data-l="de">Geschlecht</span>: <b><span data-l="bs">muški</span><span data-l="en">male</span><span data-l="de">männlich</span></b></span>
-    <span><span data-l="bs">Stanje dokumentacije</span><span data-l="en">Records up to</span><span data-l="de">Unterlagen bis</span>: <b class="mono">15.10.2026</b></span>
+    <span><span data-l="bs">Stanje dokumentacije</span><span data-l="en">Records up to</span><span data-l="de">Unterlagen bis</span>: <b class="mono">11.11.2026</b></span>
   </div>
   <div class="meta">
     <span><span data-l="bs">Kontakt</span><span data-l="en">Contact</span><span data-l="de">Kontakt</span>:</span>
@@ -273,9 +265,10 @@ footer{border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font
       <tr><td class="mono">19.08.</td><td class="n">147</td><td class="n lo">1,69</td><td class="n">228</td><td class="n">121</td><td class="n hi">118</td><td class="n">175</td><td class="n">—</td></tr>
       <tr><td class="mono">02.09.</td><td class="n">143</td><td class="n">2,07</td><td class="n">221</td><td class="n">116</td><td class="n hi">80</td><td class="n">186</td><td class="n">—</td></tr>
       <tr><td class="mono">14.10.</td><td class="n">142</td><td class="n">2,86</td><td class="n">263</td><td class="n">118</td><td class="n hi">171</td><td class="n">—</td><td class="n hi">5,3</td></tr>
+      <tr><td class="mono">11.11.</td><td class="n">125</td><td class="n lo">1,52</td><td class="n">291</td><td class="n hi">133</td><td class="n hi">198</td><td class="n hi">282</td><td class="n">—</td></tr>
     </tbody>
   </table></div>
-  <p class="cap"><span data-l="bs">14.10.2026: AST 43, ALT 51 U/L, bilirubin 17,2 µmol/L, alkalna fosfataza 155 U/L. Crveno: iznad referentne vrijednosti. Plavo: ispod.</span><span data-l="en">14.10.2026: AST 43, ALT 51 U/L, bilirubin 17.2 µmol/L, alkaline phosphatase 155 U/L. Red: above the reference range. Blue: below it.</span><span data-l="de">14.10.2026: AST 43, ALT 51 U/L, Bilirubin 17,2 µmol/L, alkalische Phosphatase 155 U/L. Rot: über dem Referenzbereich. Blau: darunter.</span></p>
+  <p class="cap"><span data-l="bs">11.11.2026: AST 34, ALT 47 U/L, alkalna fosfataza 147 U/L. Hemoglobin 125 g/L je u granicama normale, ali niži nego ranije (142–151). Crveno: iznad referentne vrijednosti. Plavo: ispod.</span><span data-l="en">11.11.2026: AST 34, ALT 47 U/L, alkaline phosphatase 147 U/L. Haemoglobin 125 g/L is within the normal range but lower than before (142–151). Red: above the reference range. Blue: below it.</span><span data-l="de">11.11.2026: AST 34, ALT 47 U/L, alkalische Phosphatase 147 U/L. Hämoglobin 125 g/L im Normbereich, aber niedriger als zuvor (142–151). Rot: über dem Referenzbereich. Blau: darunter.</span></p>
 </section>
 
 <section>
