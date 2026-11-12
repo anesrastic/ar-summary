@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="bs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Anes Rastić — Medical Summary</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single clinical-letter column (max ~860px), sticky language bar, dated timeline rows with a response chip. */
+:root{
+  --bg:#f6f8f9; --paper:#ffffff; --fg:#17222b; --muted:#5a6872; --line:#d9e1e6;
+  --accent:#1d5c7a; --accent-soft:#e3eef4;
+  --pd:#a8321f; --pd-bg:#fbe9e5; --sd:#7a5d0c; --sd-bg:#fbf2d9; --pr:#1f6b45; --pr-bg:#e3f3ea; --mx:#5b3f8c; --mx-bg:#eee8f8;
+  --warn-bg:#fff6e0; --warn-line:#e2b44a;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --sans:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f161b; --paper:#162027; --fg:#e4ebef; --muted:#9aa9b3; --line:#2a3842;
+  --accent:#7cc0de; --accent-soft:#1c3340;
+  --pd:#f19a88; --pd-bg:#3a1f1a; --sd:#e8c56a; --sd-bg:#352c14; --pr:#7fd3a5; --pr-bg:#173326; --mx:#c4a8f0; --mx-bg:#2a2140;
+  --warn-bg:#33290f; --warn-line:#a9822b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f161b; --paper:#162027; --fg:#e4ebef; --muted:#9aa9b3; --line:#2a3842;
+  --accent:#7cc0de; --accent-soft:#1c3340;
+  --pd:#f19a88; --pd-bg:#3a1f1a; --sd:#e8c56a; --sd-bg:#352c14; --pr:#7fd3a5; --pr-bg:#173326; --mx:#c4a8f0; --mx-bg:#2a2140;
+  --warn-bg:#33290f; --warn-line:#a9822b; color-scheme:dark}
+
+/* language visibility */
+:root:not([data-lang]) [data-l]:not([data-l="bs"]),
+:root[data-lang="bs"] [data-l]:not([data-l="bs"]),
+:root[data-lang="en"] [data-l]:not([data-l="en"]),
+:root[data-lang="de"] [data-l]:not([data-l="de"]){display:none!important}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--sans);margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}
+.bar-in,.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar-in{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px;flex-wrap:wrap}
+.bar-name{font:600 15px/1.2 var(--sans);color:var(--muted)}
+.langs{display:flex;gap:4px}
+.langs button{font:600 14px var(--sans);border:1px solid var(--line);background:var(--paper);color:var(--fg);padding:6px 12px;border-radius:6px;cursor:pointer}
+.langs button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.langs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{padding-block:28px 64px;display:grid;gap:36px}
+header.doc{display:grid;gap:14px;padding-bottom:24px;border-bottom:2px solid var(--fg)}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font:650 clamp(28px,5vw,40px)/1.1 var(--serif);margin:0;text-wrap:balance}
+h2{font:650 23px/1.2 var(--serif);margin:0 0 14px;text-wrap:balance}
+h3{font:600 16px/1.3 var(--sans);margin:18px 0 8px}
+p{margin:0 0 10px;max-width:68ch}
+.meta{display:flex;flex-wrap:wrap;gap:6px 22px;color:var(--muted);font-size:15px}
+.meta b{color:var(--fg);font-weight:600}
+.mono,td.n,.date{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.fact{background:var(--paper);padding:14px 16px;min-width:0}
+.fact dt{font:600 12px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.fact dd{margin:0;font-size:15.5px}
+.note{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:8px;padding:14px 16px}
+.note h3{margin-top:0}
+.note p:last-child{margin-bottom:0}
+.now{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--pd);border-radius:8px;padding:18px 18px 8px}
+ul{margin:0 0 10px;padding-left:20px}
+li{margin:4px 0}
+.year{font:650 18px var(--serif);color:var(--accent);margin:22px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--line)}
+.year:first-of-type{margin-top:0}
+.ev{display:grid;grid-template-columns:112px 1fr;gap:4px 16px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.ev .date{font-size:13.5px;color:var(--muted);padding-top:2px}
+.ev .body{min-width:0}
+.ev .what{font-weight:600}
+.ev .det{color:var(--muted);font-size:15px;margin-top:2px}
+.ev .src{font-size:13px;color:var(--muted);margin-top:4px}
+.chip{display:inline-block;font:600 11.5px/1 var(--sans);letter-spacing:.05em;text-transform:uppercase;padding:4px 7px;border-radius:4px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+.c-pd{color:var(--pd);background:var(--pd-bg)} .c-sd{color:var(--sd);background:var(--sd-bg)} .c-pr{color:var(--pr);background:var(--pr-bg)} .c-mx{color:var(--mx);background:var(--mx-bg)}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 12.5px/1.3 var(--sans);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:var(--accent-soft)}
+tr:last-child td{border-bottom:0}
+td.n{text-align:right;white-space:nowrap}
+.hi{color:var(--pd);font-weight:600}
+.lo{color:var(--accent);font-weight:600}
+.cap{font-size:13.5px;color:var(--muted);margin-top:8px}
+footer{border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:14px}
+@media (max-width:520px){.ev{grid-template-columns:1fr}.ev .date{padding-top:0}}
+@media print{.bar{display:none}body{background:#fff}.wrap{padding-block:0}}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="bar-in">
+  <span class="bar-name">Anes Rastić · 14.02.1985</span>
+  <div class="langs" role="group" aria-label="Language">
+    <button id="lang-bs" data-set="bs" type="button">BS</button>
+    <button id="lang-en" data-set="en" type="button">EN</button>
+    <button id="lang-de" data-set="de" type="button">DE</button>
+  </div>
+</div></div>
+
+<main class="wrap">
+
+<header class="doc">
+  <div class="eyebrow"><span data-l="bs">Medicinski pregled za konsultaciju</span><span data-l="en">Medical summary for consultation</span><span data-l="de">Medizinische Zusammenfassung zur Konsultation</span></div>
+  <h1><span data-l="bs">Metastatski karcinom sigmoidnog kolona</span><span data-l="en">Metastatic sigmoid colon cancer</span><span data-l="de">Metastasiertes Sigmakarzinom</span></h1>
+  <div class="meta">
+    <span><span data-l="bs">Pacijent</span><span data-l="en">Patient</span><span data-l="de">Patient</span>: <b>Anes Rastić</b></span>
+    <span><span data-l="bs">Rođen</span><span data-l="en">Born</span><span data-l="de">Geboren</span>: <b class="mono">14.02.1985</b></span>
+    <span><span data-l="bs">Spol</span><span data-l="en">Sex</span><span data-l="de">Geschlecht</span>: <b><span data-l="bs">muški</span><span data-l="en">male</span><span data-l="de">männlich</span></b></span>
+    <span><span data-l="bs">Stanje dokumentacije</span><span data-l="en">Records up to</span><span data-l="de">Unterlagen bis</span>: <b class="mono">15.10.2026</b></span>
+  </div>
+  <div class="meta">
+    <span><span data-l="bs">Kontakt</span><span data-l="en">Contact</span><span data-l="de">Kontakt</span>:</span>
+    <span>E-mail: <b class="mono">anesrastic@gmail.com</b></span>
+    <span><span data-l="bs">Mobilni</span><span data-l="en">Mobile</span><span data-l="de">Mobil</span>: <b class="mono">+381 62 424 738</b></span>
+  </div>
+  <p><span data-l="bs">Hronološki pregled bolesti i liječenja, sastavljen iz originalnih nalaza (Srbija, Turska, Njemačka). Kopije originalnih nalaza i snimci na CD-u dostupni su na zahtjev. Ako postoji razlika, važi originalni nalaz.</span><span data-l="en">Chronological summary of the disease and treatment, compiled from the original reports (Serbia, Turkey, Germany). Copies of all original reports and imaging CDs are available on request. Where anything differs, the original report applies.</span><span data-l="de">Chronologische Zusammenfassung von Erkrankung und Behandlung, erstellt aus den Originalbefunden (Serbien, Türkei, Deutschland). Kopien aller Originalbefunde und Bild-CDs sind auf Anfrage erhältlich. Bei Abweichungen gilt der Originalbefund.</span></p>
+</header>
+
+<section>
+  <h2><span data-l="bs">Ključni podaci</span><span data-l="en">Key facts</span><span data-l="de">Wichtigste Daten</span></h2>
+  <dl class="facts">
+    <div class="fact"><dt><span data-l="bs">Dijagnoza</span><span data-l="en">Diagnosis</span><span data-l="de">Diagnose</span></dt>
+      <dd><span data-l="bs">Adenokarcinom sigmoidnog kolona (C18.7), dijagnoza 11/2023; metastaze u jetri od početka</span><span data-l="en">Adenocarcinoma of the sigmoid colon (C18.7), diagnosed 11/2023; liver metastasis at diagnosis</span><span data-l="de">Adenokarzinom des Sigmas (C18.7), Erstdiagnose 11/2023; Lebermetastase bei Diagnose</span></dd></div>
+    <div class="fact"><dt><span data-l="bs">Patohistologija</span><span data-l="en">Pathology</span><span data-l="de">Histologie</span></dt>
+      <dd class="mono" style="font-size:14px">pT3 N1b (3/49) Mx, G2, LVI+, PNI+, TD+, R0</dd></div>
+    <div class="fact"><dt><span data-l="bs">Molekularno</span><span data-l="en">Molecular</span><span data-l="de">Molekular</span></dt>
+      <dd><span data-l="bs">KRAS/NRAS bez mutacija; BRAF V600 mutacija nije detektovana (PCR, IORS 09.02.2024); pMMR / MSS (IHH); HER2 negativan, IHH score 0 (01.07.2026)</span><span data-l="en">KRAS/NRAS wild-type; BRAF V600 mutation not detected (PCR, IORS 09.02.2024); pMMR / MSS (IHC); HER2 negative, IHC score 0 (01.07.2026)</span><span data-l="de">KRAS/NRAS Wildtyp; BRAF-V600-Mutation nicht nachgewiesen (PCR, IORS 09.02.2024); pMMR / MSS (IHC); HER2 negativ, IHC-Score 0 (01.07.2026)</span></dd></div>
+    <div class="fact"><dt><span data-l="bs">Opšte stanje</span><span data-l="en">Performance status</span><span data-l="de">Allgemeinzustand</span></dt>
+      <dd>ECOG 0 · <span data-l="bs">83 kg (03/2026)</span><span data-l="en">83 kg (03/2026)</span><span data-l="de">83 kg (03/2026)</span></dd></div>
+    <div class="fact"><dt><span data-l="bs">Dosadašnja sistemska terapija</span><span data-l="en">Systemic therapy so far</span><span data-l="de">Bisherige Systemtherapie</span></dt>
+      <dd>CapOx + bevacizumab ×4 · CapOx ×3 · FOLFIRI + panitumumab ×20</dd></div>
+    <div class="fact"><dt><span data-l="bs">Trenutno stanje</span><span data-l="en">Current status</span><span data-l="de">Aktueller Stand</span></dt>
+      <dd><span data-l="bs">Progresija u jetri i limfnim čvorovima jetrenog hilusa (PET/CT 09.10.2026)</span><span data-l="en">Progression in the liver and hepatic hilar lymph nodes (PET/CT 09.10.2026)</span><span data-l="de">Progress in der Leber und in Lymphknoten am Leberhilus (PET/CT 09.10.2026)</span></dd></div>
+  </dl>
+</section>
+
+<section class="now">
+  <h2><span data-l="bs">Trenutna situacija (oktobar 2026)</span><span data-l="en">Current situation (October 2026)</span><span data-l="de">Aktuelle Situation (Oktober 2026)</span></h2>
+  <h3><span data-l="bs">PET/CT 09.10.2026 (UKC Srbije) u odnosu na 02.03.2026</span><span data-l="en">PET/CT 09.10.2026 (University Clinical Centre of Serbia) vs. 02.03.2026</span><span data-l="de">PET/CT 09.10.2026 (Universitätsklinikum Serbien) vs. 02.03.2026</span></h3>
+  <ul>
+    <li><span data-l="bs">Više FDG-aktivnih promjena u jetri. Nova promjena u segmentu VI, oko 20 mm, SUVmax 18,1 (ranije 6,0). Novo žarište u segmentu VII, SUVmax 8,8.</span><span data-l="en">Multiple FDG-avid liver lesions. New lesion in segment VI, about 20 mm, SUVmax 18.1 (previously 6.0). New focus in segment VII, SUVmax 8.8.</span><span data-l="de">Mehrere FDG-aktive Leberläsionen. Neue Läsion in Segment VI, ca. 20 mm, SUVmax 18,1 (zuvor 6,0). Neuer Herd in Segment VII, SUVmax 8,8.</span></li>
+    <li><span data-l="bs">Najveća promjena (sVIII/IVa) porasla je sa 19×13 na 22×20 mm. Ostale su metabolički uglavnom stabilne.</span><span data-l="en">The largest lesion (sVIII/IVa) grew from 19×13 to 22×20 mm. The others are metabolically mostly stable.</span><span data-l="de">Die größte Läsion (sVIII/IVa) ist von 19×13 auf 22×20 mm gewachsen. Die übrigen sind metabolisch überwiegend stabil.</span></li>
+    <li><span data-l="bs">Nov portokavalni limfni čvor (SUVmax 8,2). Hepatoduodenalni čvor je stabilan (SUVmax 3,8).</span><span data-l="en">New portocaval lymph node (SUVmax 8.2). The hepatoduodenal node is stable (SUVmax 3.8).</span><span data-l="de">Neuer portokavaler Lymphknoten (SUVmax 8,2). Der hepatoduodenale Lymphknoten ist stabil (SUVmax 3,8).</span></li>
+    <li><span data-l="bs">Presakralni recidiv nakon SBRT-a i dalje je bez aktivnosti (SUVmax 2,8). Pluća, kosti i ostatak abdomena su bez patološkog nakupljanja.</span><span data-l="en">The presacral recurrence treated with SBRT remains inactive (SUVmax 2.8). Lungs, bones and the rest of the abdomen show no pathological uptake.</span><span data-l="de">Das mit SBRT behandelte präsakrale Rezidiv ist weiterhin inaktiv (SUVmax 2,8). Lunge, Skelett und übriges Abdomen ohne pathologische Anreicherung.</span></li>
+  </ul>
+  <h3><span data-l="bs">Mišljenja nakon progresije</span><span data-l="en">Opinions after progression</span><span data-l="de">Stellungnahmen nach Progress</span></h3>
+  <ul>
+    <li><b class="mono">14.10.2026</b> ONCOMED: <span data-l="bs">oligoprogresija u jetri i oko jetre. Prvo razmotriti SBRT uz održavanje kapecitabinom i panitumumabom. Ako SBRT nije moguć, ponovni CapOx bez bevacizumaba, koji se kasnije može dodati.</span><span data-l="en">oligoprogression in and around the liver. First consider SBRT with capecitabine + panitumumab maintenance. If SBRT is not possible, CapOx rechallenge without bevacizumab, which can be added later.</span><span data-l="de">Oligoprogression in der Leber und perihepatisch. Zunächst SBRT mit Erhaltung durch Capecitabin + Panitumumab prüfen. Falls SBRT nicht möglich ist, CapOx-Reexposition ohne Bevacizumab, das später ergänzt werden kann.</span></li>
+    <li><b class="mono">15.10.2026</b> <span data-l="bs">X-nož (UKC Srbije): više od 10 promjena u jetri, pa SBRT nije indikovan.</span><span data-l="en">X-knife (University Clinical Centre of Serbia): more than 10 liver lesions, so SBRT is not indicated.</span><span data-l="de">X-Knife (Universitätsklinikum Serbien): mehr als 10 Leberläsionen, daher keine Indikation zur SBRT.</span></li>
+    <li><b class="mono">15.10.2026</b> <span data-l="bs">Konzilijum IORS: ponovna primjena CapOx protokola u regionalnom centru.</span><span data-l="en">IORS tumour board: CapOx rechallenge at the regional oncology centre.</span><span data-l="de">Tumorboard IORS: CapOx-Reexposition im regionalen Onkologiezentrum.</span></li>
+    <li><b class="mono">02.11.2026</b> <span data-l="bs">Zakazan pregled kod radijacionog onkologa, Institut za onkologiju Vojvodine (Sremska Kamenica).</span><span data-l="en">Appointment with a radiation oncologist, Oncology Institute of Vojvodina (Sremska Kamenica).</span><span data-l="de">Termin bei einem Strahlentherapeuten, Onkologisches Institut der Vojvodina (Sremska Kamenica).</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2><span data-l="bs">Linije liječenja</span><span data-l="en">Treatment lines</span><span data-l="de">Therapielinien</span></h2>
+  <div class="tbl"><table>
+    <thead><tr>
+      <th><span data-l="bs">Period</span><span data-l="en">Period</span><span data-l="de">Zeitraum</span></th>
+      <th><span data-l="bs">Terapija</span><span data-l="en">Treatment</span><span data-l="de">Therapie</span></th>
+      <th><span data-l="bs">Odgovor / ishod</span><span data-l="en">Response / outcome</span><span data-l="de">Ansprechen / Ergebnis</span></th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="mono">24.11.2023</td><td><span data-l="bs">Visoka prednja resekcija rektuma + protektivna bipolarna ileostoma</span><span data-l="en">High anterior resection + protective loop ileostomy</span><span data-l="de">Hohe anteriore Rektumresektion + protektives doppelläufiges Ileostoma</span></td><td>R0</td></tr>
+      <tr><td class="mono">14.02.2024</td><td><span data-l="bs">TACE jetrene metastaze sa irinotekanom</span><span data-l="en">TACE of the liver metastasis with irinotecan</span><span data-l="de">TACE der Lebermetastase mit Irinotecan</span></td><td><span class="chip c-pd">PD</span> <span data-l="bs">MR 03/2024</span><span data-l="en">MRI 03/2024</span><span data-l="de">MRT 03/2024</span></td></tr>
+      <tr><td class="mono">04–06/2024</td><td>CapOx + bevacizumab ×4</td><td><span class="chip c-pr">PR</span></td></tr>
+      <tr><td class="mono">01.10.2024</td><td><span data-l="bs">Parcijalna segmentektomija IVb i IVa + holecistektomija</span><span data-l="en">Partial resection of segments IVb and IVa + cholecystectomy</span><span data-l="de">Partielle Resektion der Segmente IVb und IVa + Cholezystektomie</span></td><td><span data-l="bs">Metastaza 30×25×30 mm</span><span data-l="en">Metastasis 30×25×30 mm</span><span data-l="de">Metastase 30×25×30 mm</span></td></tr>
+      <tr><td class="mono">11/2024–01/2025</td><td>CapOx ×3 <span data-l="bs">(perioperativno)</span><span data-l="en">(perioperative)</span><span data-l="de">(perioperativ)</span></td><td><span data-l="bs">Prekinuto zbog hematurije/uretroragije</span><span data-l="en">Stopped because of haematuria/urethral bleeding</span><span data-l="de">Abgebrochen wegen Hämaturie/Urethrorrhagie</span></td></tr>
+      <tr><td class="mono">04/2025–09/2026</td><td>FOLFIRI + panitumumab ×20 <span data-l="bs">(posljednji 03.09.2026)</span><span data-l="en">(last 03.09.2026)</span><span data-l="de">(zuletzt 03.09.2026)</span></td><td><span class="chip c-sd">SD</span> → <span class="chip c-mx"><span data-l="bs">mješovit</span><span data-l="en">mixed</span><span data-l="de">gemischt</span></span> → <span class="chip c-pd">PD</span></td></tr>
+      <tr><td class="mono">11–15.08.2025</td><td><span data-l="bs">SBRT presakralnog recidiva, 30 Gy / 5 frakcija</span><span data-l="en">SBRT of the presacral recurrence, 30 Gy / 5 fractions</span><span data-l="de">SBRT des präsakralen Rezidivs, 30 Gy / 5 Fraktionen</span></td><td><span data-l="bs">Skoro potpun metabolički odgovor (SUV 11,4 → 3,0 → 2,8)</span><span data-l="en">Near-complete metabolic response (SUV 11.4 → 3.0 → 2.8)</span><span data-l="de">Nahezu komplette metabolische Remission (SUV 11,4 → 3,0 → 2,8)</span></td></tr>
+      <tr><td class="mono"><span data-l="bs">plan</span><span data-l="en">planned</span><span data-l="de">geplant</span></td><td><span data-l="bs">Ponovni CapOx (konzilijum IORS 15.10.2026)</span><span data-l="en">CapOx rechallenge (IORS tumour board 15.10.2026)</span><span data-l="de">CapOx-Reexposition (Tumorboard IORS 15.10.2026)</span></td><td>—</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2><span data-l="bs">Hronologija</span><span data-l="en">Chronology</span><span data-l="de">Chronologie</span></h2>
+
+  <div class="year">2023</div>
+  <div class="ev"><div class="date">09/2023</div><div class="body"><div class="what"><span data-l="bs">Prvi simptomi</span><span data-l="en">First symptoms</span><span data-l="de">Erste Symptome</span></div><div class="det"><span data-l="bs">Neuredna stolica i bolovi u trbuhu. Ultrazvuk pokazuje malu žarišnu promjenu u jetri.</span><span data-l="en">Irregular bowel movements and abdominal pain. Ultrasound shows a small focal liver lesion.</span><span data-l="de">Unregelmäßiger Stuhlgang und Bauchschmerzen. Sonografisch kleine fokale Leberläsion.</span></div></div></div>
+  <div class="ev"><div class="date">12.11.2023</div><div class="body"><div class="what"><span data-l="bs">MDCT abdomena i male karlice</span><span data-l="en">CT abdomen and pelvis</span><span data-l="de">CT Abdomen und Becken</span></div><div class="det"><span data-l="bs">Tumorska masa u maloj karlici 7×8×7 cm. Promjena u jetri 27 mm (segment IV), sumnja na metastazu.</span><span data-l="en">Pelvic tumour mass 7×8×7 cm. Liver lesion 27 mm (segment IV), suspected metastasis.</span><span data-l="de">Tumormasse im kleinen Becken 7×8×7 cm. Leberläsion 27 mm (Segment IV), V. a. Metastase.</span></div></div></div>
+  <div class="ev"><div class="date">14.11.2023</div><div class="body"><div class="what"><span data-l="bs">Biopsija pri kolonoskopiji</span><span data-l="en">Colonoscopic biopsy</span><span data-l="de">Koloskopische Biopsie</span></div><div class="det"><span data-l="bs">Invazivni adenokarcinom, tubularni tip.</span><span data-l="en">Invasive adenocarcinoma, tubular type.</span><span data-l="de">Invasives Adenokarzinom, tubulärer Typ.</span></div></div></div>
+  <div class="ev"><div class="date">24.11.2023</div><div class="body"><div class="what"><span data-l="bs">Operacija, KBC Zvezdara Beograd</span><span data-l="en">Surgery, KBC Zvezdara Belgrade</span><span data-l="de">Operation, KBC Zvezdara Belgrad</span></div><div class="det"><span data-l="bs">Visoka prednja resekcija rektuma sa protektivnom bipolarnom ileostomom. pT3 N1b (3/49), LVI+, PNI+, TD+, ivice slobodne. CEA prije operacije: 31 µg/L.</span><span data-l="en">High anterior resection with protective loop ileostomy. pT3 N1b (3/49), LVI+, PNI+, TD+, clear margins. Preoperative CEA: 31 µg/L.</span><span data-l="de">Hohe anteriore Rektumresektion mit protektivem doppelläufigem Ileostoma. pT3 N1b (3/49), LVI+, PNI+, TD+, Resektionsränder frei. Präoperatives CEA: 31 µg/L.</span></div></div></div>
+  <div class="ev"><div class="date">12/2023</div><div class="body"><div class="what"><span data-l="bs">Urološke komplikacije</span><span data-l="en">Urological complications</span><span data-l="de">Urologische Komplikationen</span></div><div class="det"><span data-l="bs">Suženje uretre, zadržavanje urina i urinarna infekcija. Urađene dilatacija i kalibracija uretre.</span><span data-l="en">Urethral stricture, urinary retention and urinary tract infection. Urethral dilatation and calibration performed.</span><span data-l="de">Harnröhrenstriktur, Harnverhalt und Harnwegsinfekt. Urethradilatation und -kalibrierung durchgeführt.</span></div></div></div>
+
+  <div class="year">2024</div>
+  <div class="ev"><div class="date">12.01.2024</div><div class="body"><div class="what"><span data-l="bs">MR gornjeg abdomena</span><span data-l="en">MRI upper abdomen</span><span data-l="de">MRT Oberbauch</span></div><div class="det"><span data-l="bs">Solitarna promjena u jetri, segmenti IV/VIII, 35×34×34 mm.</span><span data-l="en">Solitary liver lesion, segments IV/VIII, 35×34×34 mm.</span><span data-l="de">Solitäre Leberläsion, Segmente IV/VIII, 35×34×34 mm.</span></div></div></div>
+  <div class="ev"><div class="date">23.01.2024</div><div class="body"><div class="what">PET/CT, Bezmialem Vakıf, Istanbul</div><div class="det"><span data-l="bs">Hipermetabolička promjena u jetri, oko 3,5 cm, SUVmax 18,4. Drugih žarišta nema.</span><span data-l="en">Hypermetabolic liver lesion of about 3.5 cm, SUVmax 18.4. No other foci.</span><span data-l="de">Hypermetabole Leberläsion von ca. 3,5 cm, SUVmax 18,4. Keine weiteren Herde.</span></div></div></div>
+  <div class="ev"><div class="date">09.02.2024</div><div class="body"><div class="what"><span data-l="bs">Molekularna analiza, IORS</span><span data-l="en">Molecular testing, IORS</span><span data-l="de">Molekulare Testung, IORS</span></div><div class="det"><span data-l="bs">KRAS i NRAS bez mutacija, BRAF V600 nije detektovana (PCR). MLH1, MSH2, MSH6 i PMS2 očuvani, dakle mikrosatelitski stabilan.</span><span data-l="en">KRAS and NRAS wild-type, BRAF V600 not detected (PCR). MLH1, MSH2, MSH6 and PMS2 retained, i.e. microsatellite stable.</span><span data-l="de">KRAS und NRAS Wildtyp, BRAF V600 nicht nachgewiesen (PCR). MLH1, MSH2, MSH6 und PMS2 erhalten, also mikrosatellitenstabil.</span></div></div></div>
+  <div class="ev"><div class="date">14.02.2024</div><div class="body"><div class="what"><span data-l="bs">TACE sa irinotekanom, KBC Zvezdara</span><span data-l="en">TACE with irinotecan, KBC Zvezdara</span><span data-l="de">TACE mit Irinotecan, KBC Zvezdara</span></div></div></div>
+  <div class="ev"><div class="date">26.03.2024</div><div class="body"><div class="what"><span data-l="bs">MR abdomena</span><span data-l="en">MRI abdomen</span><span data-l="de">MRT Abdomen</span><span class="chip c-pd">PD</span></div><div class="det"><span data-l="bs">Promjena je narasla na 40×37×37 mm i infiltriše granu srednje hepatične vene.</span><span data-l="en">The lesion grew to 40×37×37 mm and infiltrates a branch of the middle hepatic vein.</span><span data-l="de">Die Läsion ist auf 40×37×37 mm gewachsen und infiltriert einen Ast der mittleren Lebervene.</span></div></div></div>
+  <div class="ev"><div class="date">04–06/2024</div><div class="body"><div class="what">CapOx + bevacizumab ×4<span class="chip c-pr">PR</span></div><div class="det"><span data-l="bs">Odluka konzilijuma IORS 01.04.2024.</span><span data-l="en">Decision of the IORS tumour board, 01.04.2024.</span><span data-l="de">Beschluss des Tumorboards IORS, 01.04.2024.</span></div></div></div>
+  <div class="ev"><div class="date">26.09.2024</div><div class="body"><div class="what"><span data-l="bs">CT angiografija abdomena</span><span data-l="en">CT angiography abdomen</span><span data-l="de">CT-Angiografie Abdomen</span></div><div class="det"><span data-l="bs">Promjena se smanjila na 25×22×16 mm (u martu 36×36×31 mm).</span><span data-l="en">The lesion shrank to 25×22×16 mm (36×36×31 mm in March).</span><span data-l="de">Die Läsion ist auf 25×22×16 mm geschrumpft (im März 36×36×31 mm).</span></div></div></div>
+  <div class="ev"><div class="date">01.10.2024</div><div class="body"><div class="what"><span data-l="bs">Resekcija jetre, KBC Zvezdara</span><span data-l="en">Liver resection, KBC Zvezdara</span><span data-l="de">Leberresektion, KBC Zvezdara</span></div><div class="det"><span data-l="bs">Parcijalna segmentektomija IVb i IVa i holecistektomija. Patohistologija (Y-8061/2024): metastaza adenokarcinoma, 30×25×30 mm.</span><span data-l="en">Partial resection of segments IVb and IVa and cholecystectomy. Pathology (Y-8061/2024): metastatic adenocarcinoma, 30×25×30 mm.</span><span data-l="de">Partielle Resektion der Segmente IVb und IVa und Cholezystektomie. Histologie (Y-8061/2024): Adenokarzinommetastase, 30×25×30 mm.</span></div></div></div>
+  <div class="ev"><div class="date">11/2024–01/2025</div><div class="body"><div class="what">CapOx ×3</div><div class="det"><span data-l="bs">Prekinuto 10.01.2025 zbog hematurije i krvarenja iz uretre.</span><span data-l="en">Stopped on 10.01.2025 because of haematuria and urethral bleeding.</span><span data-l="de">Am 10.01.2025 abgebrochen wegen Hämaturie und Urethrorrhagie.</span></div></div></div>
+
+  <div class="year">2025</div>
+  <div class="ev"><div class="date">26.02.2025</div><div class="body"><div class="what"><span data-l="bs">PET/CT, Institut za onkologiju Vojvodine</span><span data-l="en">PET/CT, Oncology Institute of Vojvodina</span><span data-l="de">PET/CT, Onkologisches Institut der Vojvodina</span><span class="chip c-pd">PD</span></div><div class="det"><span data-l="bs">Presakralni lokalni recidiv/limfni čvor (SUVmax 11,4). Nove promjene u jetri, najmanje 9, u oba režnja (SUVmax 8,6). Limfadenopatija hepatoduodenalnog ligamenta.</span><span data-l="en">Presacral local recurrence / lymph node (SUVmax 11.4). New liver lesions, at least 9, in both lobes (SUVmax 8.6). Lymphadenopathy of the hepatoduodenal ligament.</span><span data-l="de">Präsakrales Lokalrezidiv/Lymphknoten (SUVmax 11,4). Neue Leberläsionen, mindestens 9, in beiden Lappen (SUVmax 8,6). Lymphadenopathie im Ligamentum hepatoduodenale.</span></div></div></div>
+  <div class="ev"><div class="date">04/2025</div><div class="body"><div class="what"><span data-l="bs">Početak FOLFIRI + panitumumab, OB Užice</span><span data-l="en">Start of FOLFIRI + panitumumab, General Hospital Užice</span><span data-l="de">Beginn FOLFIRI + Panitumumab, Allgemeines Krankenhaus Užice</span></div><div class="det"><span data-l="bs">Odluka konzilijuma IORS 06.03.2025.</span><span data-l="en">Decision of the IORS tumour board, 06.03.2025.</span><span data-l="de">Beschluss des Tumorboards IORS, 06.03.2025.</span></div></div></div>
+  <div class="ev"><div class="date">12.06.2025</div><div class="body"><div class="what"><span data-l="bs">Kontrolna kolonoskopija</span><span data-l="en">Follow-up colonoscopy</span><span data-l="de">Kontrollkoloskopie</span></div></div></div>
+  <div class="ev"><div class="date">11–15.08.2025</div><div class="body"><div class="what"><span data-l="bs">SBRT presakralnog recidiva, X-nož, UKC Srbije</span><span data-l="en">SBRT of the presacral recurrence, X-knife, University Clinical Centre of Serbia</span><span data-l="de">SBRT des präsakralen Rezidivs, X-Knife, Universitätsklinikum Serbien</span></div><div class="det">30 Gy / 5 <span data-l="bs">frakcija</span><span data-l="en">fractions</span><span data-l="de">Fraktionen</span></div></div></div>
+  <div class="ev"><div class="date">24.10.2025</div><div class="body"><div class="what"><span data-l="bs">MR abdomena i karlice; CT 31.10.2025</span><span data-l="en">MRI abdomen and pelvis; CT 31.10.2025</span><span data-l="de">MRT Abdomen und Becken; CT 31.10.2025</span><span class="chip c-sd">SD</span></div><div class="det"><span data-l="bs">Bez jasnih znakova progresije. Promjena u karlici bez restrikcije difuzije.</span><span data-l="en">No clear signs of progression. The pelvic lesion shows no diffusion restriction.</span><span data-l="de">Kein eindeutiger Progress. Die Beckenläsion ohne Diffusionsrestriktion.</span></div></div></div>
+  <div class="ev"><div class="date">20.11.2025</div><div class="body"><div class="what"><span data-l="bs">Konzilijum IORS: nastaviti FOLFIRI + panitumumab</span><span data-l="en">IORS tumour board: continue FOLFIRI + panitumumab</span><span data-l="de">Tumorboard IORS: FOLFIRI + Panitumumab fortsetzen</span></div></div></div>
+
+  <div class="year">2026</div>
+  <div class="ev"><div class="date">02.03.2026</div><div class="body"><div class="what">PET/CT, UKC Srbije<span class="chip c-mx"><span data-l="bs">mješovit</span><span data-l="en">mixed</span><span data-l="de">gemischt</span></span></div><div class="det"><span data-l="bs">Presakralno skoro potpuna metabolička regresija. U jetri oko 8 promjena u progresiji (do 19 mm, SUVmax do 17,0). Hepatoduodenalni čvor 6 mm, stabilan.</span><span data-l="en">Near-complete metabolic regression presacrally. About 8 liver lesions in progression (up to 19 mm, SUVmax up to 17.0). Hepatoduodenal node 6 mm, stable.</span><span data-l="de">Präsakral nahezu komplette metabolische Regression. Ca. 8 Leberläsionen im Progress (bis 19 mm, SUVmax bis 17,0). Hepatoduodenaler Lymphknoten 6 mm, stabil.</span></div></div></div>
+  <div class="ev"><div class="date">04.03.2026</div><div class="body"><div class="what"><span data-l="bs">ONCOMED Beograd: konsultacija</span><span data-l="en">ONCOMED Belgrade: consultation</span><span data-l="de">ONCOMED Belgrad: Konsultation</span></div><div class="det"><span data-l="bs">Nastaviti još 4 ciklusa i razmotriti lokalno liječenje jetre (SBRT, termoablacija).</span><span data-l="en">Continue for 4 more cycles and consider local liver treatment (SBRT, thermal ablation).</span><span data-l="de">4 weitere Zyklen und lokale Lebertherapie prüfen (SBRT, Thermoablation).</span></div></div></div>
+  <div class="ev"><div class="date">01–09.04.2026</div><div class="body"><div class="what">Charité Berlin, <span data-l="bs">Medicinska klinika za hematologiju i onkologiju</span><span data-l="en">Department of Haematology and Oncology</span><span data-l="de">Medizinische Klinik m. S. Hämatologie, Onkologie und Tumorimmunologie</span></div><div class="det"><span data-l="bs">Tumor-board (02.04.2026) i pisano stručno mišljenje (09.04.2026).</span><span data-l="en">Tumour board (02.04.2026) and written expert opinion (09.04.2026).</span><span data-l="de">Darmtumorkonferenz (02.04.2026) und schriftliches Gutachten (09.04.2026).</span></div></div></div>
+  <div class="ev"><div class="date">10.06.2026</div><div class="body"><div class="what"><span data-l="bs">MR abdomena sa Primovistom</span><span data-l="en">MRI abdomen with Primovist</span><span data-l="de">MRT Abdomen mit Primovist</span><span class="chip c-pd">PD</span></div><div class="det"><span data-l="bs">Pet malih promjena (5–8,5 mm) stabilno. Dvije su porasle: segment V sa 8 na 13×11 mm, segment IVa sa 9×8,5 na 17×21 mm.</span><span data-l="en">Five small lesions (5–8.5 mm) stable. Two have grown: segment V from 8 to 13×11 mm, segment IVa from 9×8.5 to 17×21 mm.</span><span data-l="de">Fünf kleine Läsionen (5–8,5 mm) stabil. Zwei größenprogredient: Segment V von 8 auf 13×11 mm, Segment IVa von 9×8,5 auf 17×21 mm.</span></div></div></div>
+  <div class="ev"><div class="date">24–25.06.2026</div><div class="body"><div class="what"><span data-l="bs">ONCOMED i konzilijum IORS: nastaviti terapiju</span><span data-l="en">ONCOMED and IORS tumour board: continue treatment</span><span data-l="de">ONCOMED und Tumorboard IORS: Therapie fortsetzen</span></div><div class="det"><span data-l="bs">Klinička korist, bez novih udaljenih depozita. ONCOMED predlaže HER2 testiranje na tkivu metastaze jetre (Y-8061/2024).</span><span data-l="en">Clinical benefit, no new distant deposits. ONCOMED recommends HER2 testing on the liver metastasis tissue (Y-8061/2024).</span><span data-l="de">Klinischer Nutzen, keine neuen Fernmetastasen. ONCOMED empfiehlt eine HER2-Testung am Gewebe der Lebermetastase (Y-8061/2024).</span></div></div></div>
+  <div class="ev"><div class="date">01.07.2026</div><div class="body"><div class="what"><span data-l="bs">HER2 imunohistohemija, Beo-lab Beograd</span><span data-l="en">HER2 immunohistochemistry, Beo-lab Belgrade</span><span data-l="de">HER2-Immunhistochemie, Beo-lab Belgrad</span></div><div class="det"><span data-l="bs">Tkivo metastaze jetre (kalup 8061/24): nema pozitivne membranske reakcije, score 0. HER2 negativan.</span><span data-l="en">Liver metastasis tissue (block 8061/24): no positive membrane staining, score 0. HER2 negative.</span><span data-l="de">Gewebe der Lebermetastase (Block 8061/24): keine positive Membranreaktion, Score 0. HER2 negativ.</span></div><div class="src">Prof. dr Slavica Knežević Ušaj · 2026IH16815</div></div></div>
+  <div class="ev"><div class="date">03.09.2026</div><div class="body"><div class="what"><span data-l="bs">20. (posljednji) ciklus FOLFIRI + panitumumab</span><span data-l="en">20th (last) cycle of FOLFIRI + panitumumab</span><span data-l="de">20. (letzter) Zyklus FOLFIRI + Panitumumab</span></div></div></div>
+  <div class="ev"><div class="date">09.10.2026</div><div class="body"><div class="what">PET/CT, UKC Srbije<span class="chip c-pd">PD</span></div><div class="det"><span data-l="bs">Progresija u jetri, novi portokavalni čvor. Detalji su gore, u odjeljku „Trenutna situacija“.</span><span data-l="en">Progression in the liver and a new portocaval node. Details above, under “Current situation”.</span><span data-l="de">Progress in der Leber und ein neuer portokavaler Lymphknoten. Details oben unter „Aktuelle Situation“.</span></div></div></div>
+  <div class="ev"><div class="date">14–15.10.2026</div><div class="body"><div class="what"><span data-l="bs">ONCOMED, X-nož i konzilijum IORS</span><span data-l="en">ONCOMED, X-knife and IORS tumour board</span><span data-l="de">ONCOMED, X-Knife und Tumorboard IORS</span></div><div class="det"><span data-l="bs">SBRT nije indikovan. Preporuka: ponovni CapOx.</span><span data-l="en">SBRT not indicated. Recommendation: CapOx rechallenge.</span><span data-l="de">Keine Indikation zur SBRT. Empfehlung: CapOx-Reexposition.</span></div></div></div>
+</section>
+
+<section>
+  <h2><span data-l="bs">Promjene na PET/CT-u: mart → oktobar 2026</span><span data-l="en">PET/CT lesions: March → October 2026</span><span data-l="de">PET/CT-Läsionen: März → Oktober 2026</span></h2>
+  <div class="tbl"><table>
+    <thead><tr>
+      <th><span data-l="bs">Lokalizacija</span><span data-l="en">Location</span><span data-l="de">Lokalisation</span></th>
+      <th>02.03.2026</th><th>09.10.2026</th>
+    </tr></thead>
+    <tbody>
+      <tr><td><span data-l="bs">Jetra sVIII/IVa, subkapsularno ispred VCI</span><span data-l="en">Liver sVIII/IVa, subcapsular anterior to IVC</span><span data-l="de">Leber sVIII/IVa, subkapsulär ventral der VCI</span></td><td class="mono">19×13 mm · SUV 14,6</td><td class="mono hi">22×20 mm · SUV 12,0</td></tr>
+      <tr><td><span data-l="bs">Jetra sIVa/sVIII, inferiorno</span><span data-l="en">Liver sIVa/sVIII, inferior</span><span data-l="de">Leber sIVa/sVIII, kaudal</span></td><td class="mono">18×13 mm · SUV 17,0</td><td class="mono">15×13 mm · SUV 13,1</td></tr>
+      <tr><td><span data-l="bs">Jetra, rub resekcije</span><span data-l="en">Liver, resection margin</span><span data-l="de">Leber, Resektionsrand</span></td><td class="mono">15×13 mm · SUV 16,2</td><td class="mono">15×13 mm · SUV 15,9</td></tr>
+      <tr><td><span data-l="bs">Jetra sVI, subkapsularno</span><span data-l="en">Liver sVI, subcapsular</span><span data-l="de">Leber sVI, subkapsulär</span></td><td class="mono">9 mm · SUV 10,3</td><td class="mono">9 mm · SUV 9,0</td></tr>
+      <tr><td><span data-l="bs">Jetra sVI, druga promjena</span><span data-l="en">Liver sVI, second lesion</span><span data-l="de">Leber sVI, zweite Läsion</span></td><td class="mono">SUV 6,0</td><td class="mono hi">~20 mm · SUV 18,1</td></tr>
+      <tr><td><span data-l="bs">Jetra sVII, subkapsularno</span><span data-l="en">Liver sVII, subcapsular</span><span data-l="de">Leber sVII, subkapsulär</span></td><td class="mono">—</td><td class="mono hi"><span data-l="bs">novo</span><span data-l="en">new</span><span data-l="de">neu</span> · SUV 8,8</td></tr>
+      <tr><td><span data-l="bs">Portokavalni limfni čvor</span><span data-l="en">Portocaval lymph node</span><span data-l="de">Portokavaler Lymphknoten</span></td><td class="mono">—</td><td class="mono hi"><span data-l="bs">novo</span><span data-l="en">new</span><span data-l="de">neu</span> · SUV 8,2</td></tr>
+      <tr><td><span data-l="bs">Hepatoduodenalni limfni čvor</span><span data-l="en">Hepatoduodenal lymph node</span><span data-l="de">Hepatoduodenaler Lymphknoten</span></td><td class="mono">6 mm · SUV 5,3</td><td class="mono">SUV 3,8</td></tr>
+      <tr><td><span data-l="bs">Presakralno (nakon SBRT)</span><span data-l="en">Presacral (after SBRT)</span><span data-l="de">Präsakral (nach SBRT)</span></td><td class="mono">13×10 mm · SUV 3,0</td><td class="mono">13×10 mm · SUV 2,8</td></tr>
+    </tbody>
+  </table></div>
+  <p class="cap"><span data-l="bs">Crveno: veće, aktivnije ili novo u odnosu na mart 2026.</span><span data-l="en">Red: larger, more active or new compared with March 2026.</span><span data-l="de">Rot: größer, aktiver oder neu im Vergleich zu März 2026.</span></p>
+</section>
+
+<section>
+  <h2><span data-l="bs">Tumor markeri</span><span data-l="en">Tumour markers</span><span data-l="de">Tumormarker</span></h2>
+  <div class="tbl"><table>
+    <thead><tr><th><span data-l="bs">Datum</span><span data-l="en">Date</span><span data-l="de">Datum</span></th><th style="text-align:right">CEA µg/L <span style="font-weight:400">(&lt;3,8)</span></th><th style="text-align:right">CA 19-9 kU/L <span style="font-weight:400">(&lt;34)</span></th></tr></thead>
+    <tbody>
+      <tr><td class="mono">10–11/2023 <span data-l="bs">(prije operacije)</span><span data-l="en">(before surgery)</span><span data-l="de">(präoperativ)</span></td><td class="n hi">31</td><td class="n">16,87</td></tr>
+      <tr><td class="mono">28.02.2025</td><td class="n">1,97</td><td class="n">11,98</td></tr>
+      <tr><td class="mono">10.06.2025</td><td class="n">2,36</td><td class="n">7,23</td></tr>
+      <tr><td class="mono">23.10.2025</td><td class="n">2,21</td><td class="n">7,20</td></tr>
+      <tr><td class="mono">18.11.2025</td><td class="n">2,36</td><td class="n">8,57</td></tr>
+      <tr><td class="mono">26.02.2026</td><td class="n">1,97</td><td class="n">7,73</td></tr>
+      <tr><td class="mono">14.10.2026</td><td class="n">3,45</td><td class="n">16,61</td></tr>
+    </tbody>
+  </table></div>
+  <p class="cap"><span data-l="bs">Od operacije su markeri u granicama normale i nisu pratili progresiju na snimanjima. Vrijednosti iz oktobra 2026. su oko dvostruko više nego ranije.</span><span data-l="en">Since surgery the markers have stayed within normal limits and did not reflect the progression seen on imaging. The October 2026 values are about twice the earlier ones.</span><span data-l="de">Seit der Operation liegen die Marker im Normbereich und spiegelten den bildgebenden Progress nicht wider. Die Werte vom Oktober 2026 sind etwa doppelt so hoch wie zuvor.</span></p>
+</section>
+
+<section>
+  <h2><span data-l="bs">Laboratorija 2026</span><span data-l="en">Laboratory 2026</span><span data-l="de">Labor 2026</span></h2>
+  <div class="tbl"><table>
+    <thead><tr><th><span data-l="bs">Datum</span><span data-l="en">Date</span><span data-l="de">Datum</span></th><th style="text-align:right">Hb g/L</th><th style="text-align:right"><span data-l="bs">Neutr.</span><span data-l="en">ANC</span><span data-l="de">Neutro.</span> ×10⁹/L</th><th style="text-align:right">Tr ×10⁹/L</th><th style="text-align:right"><span data-l="bs">Kreat.</span><span data-l="en">Creat.</span><span data-l="de">Krea</span> µmol/L</th><th style="text-align:right">GGT U/L</th><th style="text-align:right">LDH U/L</th><th style="text-align:right">CRP mg/L</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">26.02.</td><td class="n">143</td><td class="n">2,80</td><td class="n">242</td><td class="n">110</td><td class="n hi">86</td><td class="n">249</td><td class="n">1,5</td></tr>
+      <tr><td class="mono">24.03.</td><td class="n">148</td><td class="n">2,23</td><td class="n">235</td><td class="n">96</td><td class="n hi">179</td><td class="n hi">320</td><td class="n hi">4,8</td></tr>
+      <tr><td class="mono">08.04.</td><td class="n">149</td><td class="n">2,77</td><td class="n">238</td><td class="n">106</td><td class="n hi">162</td><td class="n">202</td><td class="n">—</td></tr>
+      <tr><td class="mono">22.04.</td><td class="n">151</td><td class="n lo">1,62</td><td class="n">210</td><td class="n">106</td><td class="n hi">90</td><td class="n">208</td><td class="n">2,2</td></tr>
+      <tr><td class="mono">13.05.</td><td class="n">151</td><td class="n lo">1,21</td><td class="n">291</td><td class="n">116</td><td class="n hi">95</td><td class="n">197</td><td class="n">2,1</td></tr>
+      <tr><td class="mono">09.06.</td><td class="n">145</td><td class="n">4,68</td><td class="n">305</td><td class="n">102</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+      <tr><td class="mono">22.07.</td><td class="n">147</td><td class="n">4,23</td><td class="n">259</td><td class="n hi">138</td><td class="n hi">303</td><td class="n hi">441</td><td class="n hi">4,8</td></tr>
+      <tr><td class="mono">05.08.</td><td class="n">144</td><td class="n lo">1,84</td><td class="n">245</td><td class="n">113</td><td class="n hi">217</td><td class="n">194</td><td class="n hi">4,5</td></tr>
+      <tr><td class="mono">19.08.</td><td class="n">147</td><td class="n lo">1,69</td><td class="n">228</td><td class="n">121</td><td class="n hi">118</td><td class="n">175</td><td class="n">—</td></tr>
+      <tr><td class="mono">02.09.</td><td class="n">143</td><td class="n">2,07</td><td class="n">221</td><td class="n">116</td><td class="n hi">80</td><td class="n">186</td><td class="n">—</td></tr>
+      <tr><td class="mono">14.10.</td><td class="n">142</td><td class="n">2,86</td><td class="n">263</td><td class="n">118</td><td class="n hi">171</td><td class="n">—</td><td class="n hi">5,3</td></tr>
+    </tbody>
+  </table></div>
+  <p class="cap"><span data-l="bs">14.10.2026: AST 43, ALT 51 U/L, bilirubin 17,2 µmol/L, alkalna fosfataza 155 U/L. Crveno: iznad referentne vrijednosti. Plavo: ispod.</span><span data-l="en">14.10.2026: AST 43, ALT 51 U/L, bilirubin 17.2 µmol/L, alkaline phosphatase 155 U/L. Red: above the reference range. Blue: below it.</span><span data-l="de">14.10.2026: AST 43, ALT 51 U/L, Bilirubin 17,2 µmol/L, alkalische Phosphatase 155 U/L. Rot: über dem Referenzbereich. Blau: darunter.</span></p>
+</section>
+
+<section>
+  <h2><span data-l="bs">Prateće bolesti i nuspojave</span><span data-l="en">Comorbidities and side effects</span><span data-l="de">Begleiterkrankungen und Nebenwirkungen</span></h2>
+  <ul>
+    <li><span data-l="bs">Hipoplazija desnog bubrega (scintigrafija 2016: split funkcija 27 % desno, 73 % lijevo). Kreatinin 2026: 96–138 µmol/L.</span><span data-l="en">Right renal hypoplasia (scintigraphy 2016: split function 27 % right, 73 % left). Creatinine in 2026: 96–138 µmol/L.</span><span data-l="de">Nierenhypoplasie rechts (Szintigrafie 2016: seitengetrennte Funktion 27 % rechts, 73 % links). Kreatinin 2026: 96–138 µmol/L.</span></li>
+    <li><span data-l="bs">Striktura uretre, više puta dilatirana. Hematurija i uretroragija pod CapOx-om (01/2025). Povremena hematurija i leukociturija i 2026.</span><span data-l="en">Urethral stricture, dilated several times. Haematuria and urethral bleeding on CapOx (01/2025). Intermittent haematuria and leukocyturia also in 2026.</span><span data-l="de">Harnröhrenstriktur, mehrfach dilatiert. Hämaturie und Urethrorrhagie unter CapOx (01/2025). Auch 2026 intermittierende Hämaturie und Leukozyturie.</span></li>
+    <li><span data-l="bs">Nuspojave panitumumaba: osip gradus 2–3 i paronihija na rukama i stopalima gradus 2. Blaga neutropenija bez komplikacija.</span><span data-l="en">Panitumumab side effects: rash grade 2–3 and paronychia of hands and feet grade 2. Mild neutropenia without complications.</span><span data-l="de">Nebenwirkungen von Panitumumab: Hautausschlag Grad 2–3 und Paronychie an Händen und Füßen Grad 2. Leichte Neutropenie ohne Komplikationen.</span></li>
+    <li><span data-l="bs">MR 06/2026: hepatoholedoh 8–9,5 mm, distalni holedoh sužen u dužini oko 8 mm. GGT je u 2026. stalno povišen.</span><span data-l="en">MRI 06/2026: common hepatic/bile duct 8–9.5 mm, distal common bile duct narrowed over about 8 mm. GGT has been persistently elevated in 2026.</span><span data-l="de">MRT 06/2026: Ductus hepatocholedochus 8–9,5 mm, distaler Choledochus auf ca. 8 mm Länge verengt. GGT 2026 durchgehend erhöht.</span></li>
+    <li><span data-l="bs">Mala hijatalna hernija.</span><span data-l="en">Small hiatal hernia.</span><span data-l="de">Kleine Hiatushernie.</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2><span data-l="bs">Nalazi koji se čekaju</span><span data-l="en">Pending reports</span><span data-l="de">Ausstehende Befunde</span></h2>
+  <ul>
+    <li><span data-l="bs">Pisano mišljenje Charité Berlin (09.04.2026)</span><span data-l="en">Written opinion from Charité Berlin (09.04.2026)</span><span data-l="de">Schriftliches Gutachten der Charité Berlin (09.04.2026)</span></li>
+    <li><span data-l="bs">Germinativno testiranje na Lynch sindrom (pristanak potpisan 14.06.2024)</span><span data-l="en">Germline testing for Lynch syndrome (consent signed 14.06.2024)</span><span data-l="de">Keimbahntestung auf Lynch-Syndrom (Einwilligung unterschrieben am 14.06.2024)</span></li>
+    <li><span data-l="bs">Nalaz radijacionog onkologa, IOV Sremska Kamenica (termin 02.11.2026)</span><span data-l="en">Report from the radiation oncologist, IOV Sremska Kamenica (appointment 02.11.2026)</span><span data-l="de">Befund des Strahlentherapeuten, IOV Sremska Kamenica (Termin 02.11.2026)</span></li>
+  </ul>
+</section>
+
+<footer>
+  <p><b><span data-l="bs">Kontakt</span><span data-l="en">Contact</span><span data-l="de">Kontakt</span>:</b> Anes Rastić · <span class="mono">anesrastic@gmail.com</span> · <span class="mono">+381 62 424 738</span></p>
+  <p><span data-l="bs">Pregled je sastavljen iz medicinske dokumentacije pacijenta. Ustanove: KBC Zvezdara, Institut za onkologiju i radiologiju Srbije (IORS), UKC Srbije, OB Užice, ONCOMED-System Beograd, Institut za onkologiju Vojvodine, Bezmialem Vakıf Istanbul, Charité Berlin.</span><span data-l="en">Compiled from the patient’s medical records. Institutions: KBC Zvezdara, Institute for Oncology and Radiology of Serbia (IORS), University Clinical Centre of Serbia, General Hospital Užice, ONCOMED-System Belgrade, Oncology Institute of Vojvodina, Bezmialem Vakıf Istanbul, Charité Berlin.</span><span data-l="de">Erstellt aus den medizinischen Unterlagen des Patienten. Einrichtungen: KBC Zvezdara, Institut für Onkologie und Radiologie Serbiens (IORS), Universitätsklinikum Serbien, Allgemeines Krankenhaus Užice, ONCOMED-System Belgrad, Onkologisches Institut der Vojvodina, Bezmialem Vakıf Istanbul, Charité Berlin.</span></p>
+</footer>
+</main>
+
+<script>
+(function(){
+  var langs=["bs","en","de"], root=document.documentElement;
+  function set(l,push){
+    if(langs.indexOf(l)<0) l="bs";
+    root.setAttribute("data-lang",l); root.lang=l;
+    langs.forEach(function(x){var b=document.getElementById("lang-"+x); if(b) b.setAttribute("aria-pressed", x===l?"true":"false");});
+    if(push && location.hash!=="#"+l){ try{history.replaceState(null,"","#"+l);}catch(e){location.hash=l;} }
+    try{localStorage.setItem("lang",l);}catch(e){}
+  }
+  var h=location.hash.replace("#",""), saved=null;
+  try{saved=localStorage.getItem("lang");}catch(e){}
+  set(langs.indexOf(h)>=0?h:(saved||"bs"),false);
+  document.querySelectorAll(".langs button").forEach(function(b){b.addEventListener("click",function(){set(b.dataset.set,true);});});
+  window.addEventListener("hashchange",function(){var x=location.hash.replace("#",""); if(langs.indexOf(x)>=0) set(x,false);});
+})();
+</script>
+
+</body>
+</html>
