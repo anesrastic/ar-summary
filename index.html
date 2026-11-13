@@ -10,16 +10,21 @@
 <style>
 /* Layout: single clinical-letter column (max ~860px), sticky language bar, dated timeline rows with a response chip. */
 :root{
-  /* Light-only palette: airy blue-white ground, clear sky-blue accent. */
-  --bg:#f4f9fc; --paper:#ffffff; --fg:#1f2d36; --muted:#5f707b; --line:#dce8ef;
-  --accent:#2b7bb0; --accent-soft:#eaf4fa; --head:#e6f2f9;
-  --pd:#b23a26; --pd-bg:#fdeeea; --sd:#8a6a12; --sd-bg:#fdf5df; --pr:#23804f; --pr-bg:#e6f6ed; --mx:#6a4ea3; --mx-bg:#f2edfb;
-  --warn-bg:#fff8e6; --warn-line:#efc766;
+  /* Dark-only palette: deep navy ground, slate cards, clear sky-blue accent. */
+  --bg:#0d1821; --paper:#14232e; --fg:#e7eef3; --muted:#9fb2bf; --line:#263a48;
+  --accent:#6cb8e6; --accent-soft:#1a3242; --head:#18303f; --on-accent:#0d1821;
+  --pd:#ff9c87; --pd-bg:#3d201a; --sd:#f0c96b; --sd-bg:#3a2f12; --pr:#82dcab; --pr-bg:#163526; --mx:#c9b0f5; --mx-bg:#2b2346;
+  --warn-bg:#33290f; --warn-line:#a9822b;
   --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
   --sans:"Source Sans 3","Segoe UI",system-ui,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
-  color-scheme:light;
+  color-scheme:dark;
 }
+@media print{:root{
+  --bg:#ffffff; --paper:#ffffff; --fg:#1f2d36; --muted:#5f707b; --line:#dce8ef;
+  --accent:#2b7bb0; --accent-soft:#eaf4fa; --head:#eef6fb; --on-accent:#ffffff;
+  --pd:#b23a26; --pd-bg:#fdeeea; --sd:#8a6a12; --sd-bg:#fdf5df; --pr:#23804f; --pr-bg:#e6f6ed; --mx:#6a4ea3; --mx-bg:#f2edfb;
+  color-scheme:light}}
 
 /* language visibility */
 :root:not([data-lang]) [data-l]:not([data-l="bs"]),
@@ -36,10 +41,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .bar-name{font:600 15px/1.2 var(--sans);color:var(--muted)}
 .langs{display:flex;gap:4px}
 .langs button{font:600 14px var(--sans);border:1px solid var(--line);background:var(--paper);color:var(--fg);padding:6px 12px;border-radius:6px;cursor:pointer}
-.langs button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#ffffff}
+.langs button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .langs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .wrap{padding-block:28px 64px;display:grid;gap:36px}
-header.doc{display:grid;gap:14px;padding:24px 22px;background:var(--head);border:1px solid var(--line);border-radius:12px}
+header.doc{display:grid;gap:14px;padding:24px 22px;background:var(--head);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:12px}
 .eyebrow{font:600 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
 h1{font:650 clamp(28px,5vw,40px)/1.1 var(--serif);margin:0;text-wrap:balance}
 h2{font:650 23px/1.2 var(--serif);margin:0 0 14px;text-wrap:balance}
@@ -201,8 +206,10 @@ footer{border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font
   <div class="year">2026</div>
   <div class="ev"><div class="date">02.03.2026</div><div class="body"><div class="what">PET/CT, UKC Srbije<span class="chip c-mx"><span data-l="bs">mješovit</span><span data-l="en">mixed</span><span data-l="de">gemischt</span></span></div><div class="det"><span data-l="bs">Presakralno skoro potpuna metabolička regresija. U jetri oko 8 promjena u progresiji (do 19 mm, SUVmax do 17,0). Hepatoduodenalni čvor 6 mm, stabilan.</span><span data-l="en">Near-complete metabolic regression presacrally. About 8 liver lesions in progression (up to 19 mm, SUVmax up to 17.0). Hepatoduodenal node 6 mm, stable.</span><span data-l="de">Präsakral nahezu komplette metabolische Regression. Ca. 8 Leberläsionen im Progress (bis 19 mm, SUVmax bis 17,0). Hepatoduodenaler Lymphknoten 6 mm, stabil.</span></div></div></div>
   <div class="ev"><div class="date">04.03.2026</div><div class="body"><div class="what"><span data-l="bs">ONCOMED Beograd: konsultacija</span><span data-l="en">ONCOMED Belgrade: consultation</span><span data-l="de">ONCOMED Belgrad: Konsultation</span></div><div class="det"><span data-l="bs">Nastaviti još 4 ciklusa i razmotriti lokalno liječenje jetre (SBRT, termoablacija).</span><span data-l="en">Continue for 4 more cycles and consider local liver treatment (SBRT, thermal ablation).</span><span data-l="de">4 weitere Zyklen und lokale Lebertherapie prüfen (SBRT, Thermoablation).</span></div></div></div>
-  <div class="ev"><div class="date">01–09.04.2026</div><div class="body"><div class="what">Charité Berlin, <span data-l="bs">Medicinska klinika za hematologiju i onkologiju</span><span data-l="en">Department of Haematology and Oncology</span><span data-l="de">Medizinische Klinik m. S. Hämatologie, Onkologie und Tumorimmunologie</span></div><div class="det"><span data-l="bs">Tumor-board (02.04.2026) i pisano stručno mišljenje (09.04.2026).</span><span data-l="en">Tumour board (02.04.2026) and written expert opinion (09.04.2026).</span><span data-l="de">Darmtumorkonferenz (02.04.2026) und schriftliches Gutachten (09.04.2026).</span></div></div></div>
-  <div class="ev"><div class="date">10.06.2026</div><div class="body"><div class="what"><span data-l="bs">MR abdomena sa Primovistom</span><span data-l="en">MRI abdomen with Primovist</span><span data-l="de">MRT Abdomen mit Primovist</span><span class="chip c-pd">PD</span></div><div class="det"><span data-l="bs">Pet malih promjena (5–8,5 mm) stabilno. Dvije su porasle: segment V sa 8 na 13×11 mm, segment IVa sa 9×8,5 na 17×21 mm.</span><span data-l="en">Five small lesions (5–8.5 mm) stable. Two have grown: segment V from 8 to 13×11 mm, segment IVa from 9×8.5 to 17×21 mm.</span><span data-l="de">Fünf kleine Läsionen (5–8,5 mm) stabil. Zwei größenprogredient: Segment V von 8 auf 13×11 mm, Segment IVa von 9×8,5 auf 17×21 mm.</span></div></div></div>
+  <div class="ev"><div class="date">01–09.04.2026</div><div class="body"><div class="what">Charité Berlin, <span data-l="bs">Medicinska klinika za hematologiju i onkologiju</span><span data-l="en">Department of Haematology and Oncology</span><span data-l="de">Medizinische Klinik m. S. Hämatologie, Onkologie und Tumorimmunologie</span></div><div class="det"><span data-l="bs">Drugo mišljenje na osnovu dokumentacije i snimaka, prikaz na multidisciplinarnom kolorektalnom tumor-boardu 02.04.2026. PET/CT iz marta: bez sigurnih znakova metastaza u limfnim čvorovima i plućima; više površinskih promjena u jetri, procjena ograničena. Van jetre nema bolesti.</span><span data-l="en">Second opinion based on records and imaging, presented at the multidisciplinary colorectal tumour board on 02.04.2026. March PET/CT: no definite lymph node or pulmonary metastases; multiple superficial liver lesions, assessment limited. No extrahepatic disease.</span><span data-l="de">Zweitmeinung nach Aktenlage und Bildgebung, vorgestellt in der interdisziplinären kolorektalen Tumorkonferenz am 02.04.2026. PET/CT März: kein sicherer Hinweis auf Lymphknoten- oder Lungenmetastasen; multiple oberflächliche Leberläsionen, Beurteilung eingeschränkt. Keine extrahepatische Manifestation.</span></div>
+  <div class="det"><b><span data-l="bs">Preporuke (09.04.2026):</span><span data-l="en">Recommendations (09.04.2026):</span><span data-l="de">Empfehlungen (09.04.2026):</span></b> <span data-l="bs">1) nastaviti FOLFIRI + panitumumab; 2) MR jetre sa Primovistom, zatim ponovna procjena sekundarne resektabilnosti u kurativnoj namjeri; 3) genetsko savjetovanje i proširena molekularna dijagnostika.</span><span data-l="en">1) continue FOLFIRI + panitumumab; 2) liver MRI with Primovist, followed by reassessment of secondary resectability with curative intent; 3) genetic counselling and extended molecular diagnostics.</span><span data-l="de">1) Fortsetzung FOLFIRI + Panitumumab; 2) Leber-MRT mit Primovist, danach erneute Prüfung der sekundären Resektabilität in kurativer Intention; 3) genetische Beratung und erweiterte molekulare Diagnostik.</span></div>
+  <div class="src">Prof. Dr. med. Sebastian Stintzing, PD Dr. med. Ivan Jelas · <span data-l="bs">broj slučaja</span><span data-l="en">case no.</span><span data-l="de">Fallnummer</span> 0319626188</div></div></div>
+  <div class="ev"><div class="date">10.06.2026</div><div class="body"><div class="what"><span data-l="bs">MR abdomena sa Primovistom (po preporuci Charitéa)</span><span data-l="en">MRI abdomen with Primovist (as recommended by Charité)</span><span data-l="de">MRT Abdomen mit Primovist (nach Empfehlung der Charité)</span><span class="chip c-pd">PD</span></div><div class="det"><span data-l="bs">Pet malih promjena (5–8,5 mm) stabilno. Dvije su porasle: segment V sa 8 na 13×11 mm, segment IVa sa 9×8,5 na 17×21 mm.</span><span data-l="en">Five small lesions (5–8.5 mm) stable. Two have grown: segment V from 8 to 13×11 mm, segment IVa from 9×8.5 to 17×21 mm.</span><span data-l="de">Fünf kleine Läsionen (5–8,5 mm) stabil. Zwei größenprogredient: Segment V von 8 auf 13×11 mm, Segment IVa von 9×8,5 auf 17×21 mm.</span></div></div></div>
   <div class="ev"><div class="date">24–25.06.2026</div><div class="body"><div class="what"><span data-l="bs">ONCOMED i konzilijum IORS: nastaviti terapiju</span><span data-l="en">ONCOMED and IORS tumour board: continue treatment</span><span data-l="de">ONCOMED und Tumorboard IORS: Therapie fortsetzen</span></div><div class="det"><span data-l="bs">Klinička korist, bez novih udaljenih depozita. ONCOMED predlaže HER2 testiranje na tkivu metastaze jetre (Y-8061/2024).</span><span data-l="en">Clinical benefit, no new distant deposits. ONCOMED recommends HER2 testing on the liver metastasis tissue (Y-8061/2024).</span><span data-l="de">Klinischer Nutzen, keine neuen Fernmetastasen. ONCOMED empfiehlt eine HER2-Testung am Gewebe der Lebermetastase (Y-8061/2024).</span></div></div></div>
   <div class="ev"><div class="date">01.07.2026</div><div class="body"><div class="what"><span data-l="bs">HER2 imunohistohemija, Beo-lab Beograd</span><span data-l="en">HER2 immunohistochemistry, Beo-lab Belgrade</span><span data-l="de">HER2-Immunhistochemie, Beo-lab Belgrad</span></div><div class="det"><span data-l="bs">Tkivo metastaze jetre (kalup 8061/24): nema pozitivne membranske reakcije, score 0. HER2 negativan.</span><span data-l="en">Liver metastasis tissue (block 8061/24): no positive membrane staining, score 0. HER2 negative.</span><span data-l="de">Gewebe der Lebermetastase (Block 8061/24): keine positive Membranreaktion, Score 0. HER2 negativ.</span></div><div class="src">Prof. dr Slavica Knežević Ušaj · 2026IH16815</div></div></div>
   <div class="ev"><div class="date">03.09.2026</div><div class="body"><div class="what"><span data-l="bs">20. (posljednji) ciklus FOLFIRI + panitumumab</span><span data-l="en">20th (last) cycle of FOLFIRI + panitumumab</span><span data-l="de">20. (letzter) Zyklus FOLFIRI + Panitumumab</span></div></div></div>
@@ -285,8 +292,8 @@ footer{border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font
 <section>
   <h2><span data-l="bs">Nalazi koji se čekaju</span><span data-l="en">Pending reports</span><span data-l="de">Ausstehende Befunde</span></h2>
   <ul>
-    <li><span data-l="bs">Pisano mišljenje Charité Berlin (09.04.2026)</span><span data-l="en">Written opinion from Charité Berlin (09.04.2026)</span><span data-l="de">Schriftliches Gutachten der Charité Berlin (09.04.2026)</span></li>
-    <li><span data-l="bs">Germinativno testiranje na Lynch sindrom (pristanak potpisan 14.06.2024)</span><span data-l="en">Germline testing for Lynch syndrome (consent signed 14.06.2024)</span><span data-l="de">Keimbahntestung auf Lynch-Syndrom (Einwilligung unterschrieben am 14.06.2024)</span></li>
+    <li><span data-l="bs">Germinativno testiranje na Lynch sindrom (pristanak potpisan 14.06.2024) i genetsko savjetovanje koje preporučuje Charité</span><span data-l="en">Germline testing for Lynch syndrome (consent signed 14.06.2024) and genetic counselling recommended by Charité</span><span data-l="de">Keimbahntestung auf Lynch-Syndrom (Einwilligung unterschrieben am 14.06.2024) und von der Charité empfohlene genetische Beratung</span></li>
+    <li><span data-l="bs">Proširena molekularna dijagnostika (npr. NGS panel), preporuka Charitéa 04/2026</span><span data-l="en">Extended molecular diagnostics (e.g. NGS panel), recommended by Charité 04/2026</span><span data-l="de">Erweiterte molekulare Diagnostik (z. B. NGS-Panel), Empfehlung der Charité 04/2026</span></li>
     <li><span data-l="bs">Nalaz radijacionog onkologa, IOV Sremska Kamenica (termin 02.11.2026)</span><span data-l="en">Report from the radiation oncologist, IOV Sremska Kamenica (appointment 02.11.2026)</span><span data-l="de">Befund des Strahlentherapeuten, IOV Sremska Kamenica (Termin 02.11.2026)</span></li>
   </ul>
 </section>
